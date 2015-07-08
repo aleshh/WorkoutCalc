@@ -1,6 +1,6 @@
 # WorkoutCalc
 
-Calculates warm-up weights and sets for Starting Strength. Uses Local Storage to store past workout weights for next time.
+Calculates warm-up weights and sets for Starting Strength. Uses Local Storage to store past workout weights for next time. http://alesh.com/projects/workout/
 
 ## ToDo
 
