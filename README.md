@@ -4,11 +4,11 @@ Calculates warm-up weights and sets for Starting Strength. Uses Local Storage to
 
 ## ToDo
 
-[ ] suggest weights combination
-[ ] use keyboard to control weight input
-[ ] fix weight input buttons
-[ ] convert all input divs to buttons
-[ ] utility function to delete local data
+- [ ] suggest weights combination
+- [ ] use keyboard to control weight input
+- [ ] fix weight input buttons
+- [ ] convert all input divs to buttons
+- [ ] utility function to delete local data
 
 ## Log
 
