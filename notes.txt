@@ -1,0 +1,36 @@
+model.lastWeights.sq
+model.lastWeights.bp ...
+
+-->
+
+model.lastWeights.sq.lastWeight
+model.lastWeights.sq.nextWeight
+model.lastWeights.sq.date
+
+- - -
+
+workWeight
+
+currentExercise
+
+currentWorkout
+
+storeExercise = each exercise gets stored here after it's complete; the whole object gets added to the end of pastWorkouts
+
+
+
+model.pastWorkouts = data from localstorage; an array of the same object type as currentWorkout
+
+model.lastWeights = last of each exercise from model.PastWorkouts
+
+
+storeExercise:
+{
+  date: new Date(),
+  workout: 'sqBpDl',
+  exercises: [
+    { exercise: 'sq', currentWeight: 0, nextWeight: 0 },
+    { exercise: 'bp', currentWeight: 0, nextWeight: 0 },
+    { exercise: 'dl', currentWeight: 0, nextWeight: 0 }
+  ]
+}

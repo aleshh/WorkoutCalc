@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WorkoutCalc</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <link rel='stylesheet' href="2015.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <script src="workoutcalc.js"></script>
+
+</head>
+<body>
+  <header>
+    <hgroup>
+
+<!-- <span class="toolbar left-toolbar fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+</span>
+
+<span class="toolbar right-toolbar fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-question fa-stack-1x fa-inverse"></i>
+</span>
+ -->
+      <h1 id="status">Warmup Calc</h1>
+      <!-- <div id="status"></div> -->
+    </hgroup>
+  </header>
+  <div id="wrapper">
+
+    <div id="selectWorkout">
+
+      Select workout:
+
+      <button type="button" class="wide-button button " id="sqBpDl">
+        Squat &middot; Bench Press &middot; Deadlift
+      </button>
+
+      <button type="button" class="wide-button button" id="sqSpPc">
+        Squat &middot; Press &middot; Power Clean
+      </button>
+
+    </div>
+
+    <div id="weightSelect">
+      Enter weight:<br>
+      <button type="button" class="button dec" >&minus;</button>
+      <input class="weightInput" id="weightInput" size="5" step="5" min="45" max="2000" type="number" > lbs.
+      <button type="button" class="button inc" >+</button>
+      <p class="note"></p>
+      <button type="button" class="button default-button" id="calculateWeightsButton">
+        GO
+      </button>
+    </div>
+
+    <div id="workout">
+      <div id="weightReps"></div>
+
+      <div id="doneExercise">
+        <button type="button" class="button" id="backButton">&lt; BACK</button>
+        <button type="button" class="button default-button" id="doneButton">DONE</button>
+      </div>
+    </div>
+
+    <div id="nextWeightSelect">
+      Weight for next time:<br>
+        <button type="button" class="button dec" >&minus;</button>
+        <input class="weightInput" id="nextWeightInput" size="5" step="5" min="45" max="2000" type="number" > lbs.
+        <button type="button" class="button inc" >+</button>
+      <p class="note"></p>
+      <button type="button" class="button default-button" id="nextWeightButton">OK</button>
+    </div>
+
+    <div id="doneWorkout">
+      <div id="displayWorkout">
+        <p>Done!</p>
+      </div>
+    </div>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,477 @@
+
+// suggest weights combination
+// use keyboard to control weight input
+// fix weight input buttons
+// convert all input divs to buttons
+// utility function to delete local data
+//
+// 2015-07-08 separated out js css html files
+// 2015-06-11 stored value bugfix, status bar changes
+// 2015-06-09 fixed inc button from 0
+// 2015-05-27 properly encode and retrieve dates in localStorage
+// 2015-05-26 display previous weight on weight entry screen
+// 2015-05-24 next time weight input view flow)
+// 2015-05-23 de-lint :), started in on next-time weight view
+// 2015-05-22 next exercise inc by +10 or less to round up, fixes
+// 2015-05-21 smart +/- buttons on weight input screen
+// 2015-05-20 store/retrive past workouts, get value for each exercise, pre-populate field
+// 2015-05-16 finally figure out workout storage object, display results after workout
+// 2015-05-12 fix view nesting, show stored values at end
+// 2015-05-11 iphone refinements, stack exchange submit
+// 2015-05-10 responsive design
+// 2015-05-09 improved MVC flow and functions, step through three exercises
+// 2015-05-08 css styling, minimum weight, testing mode to skip first screen
+// 2015-05-07 css styling, weight input
+// 2015-05-06 display sets
+// 2015-05-05 more logic
+// 2015-05-04 event handling for workout selection
+// 2015-05-03 calculate sets and weights
+// 2015-05-02 started -- basic HTML and CSS
+
+var model = {
+  exercises: ['sq', 'bp', 'dl', 'sp', 'pc'],
+  currentExerciseWeights: [],
+  lastWeights: {},
+  // pastWorkouts: [],
+  calculateSets: function() {
+    switch(this.currentExercise) {
+      case 'sq':
+        this.currentExerciseSets = [2, 1, 1, 1, 3];
+        this.currentExerciseReps = [5, 5, 3, 2, 5];
+        this.currentExerciseWeights[0] = 45;
+        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.08) * 5;
+        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.12) * 5;
+        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.16) * 5;
+        this.currentExerciseWeights[4] = this.workWeight;
+        break;
+      case 'bp':
+        this.currentExerciseSets = [2, 1, 1, 1, 3];
+        this.currentExerciseReps = [5, 5, 3, 2, 5];
+        this.currentExerciseWeights[0] = 45;
+        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.1) * 5;
+        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
+        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.18) * 5;
+        this.currentExerciseWeights[4] = this.workWeight;
+        break;
+      case 'dl':
+        this.currentExerciseSets = [2, 1, 1, 1];
+        this.currentExerciseReps = [5, 3, 2, 5];
+        this.currentExerciseWeights = [];
+        this.currentExerciseWeights[0] = Math.floor(this.workWeight * 0.08) * 5;
+        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.12) * 5;
+        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.17) * 5;
+        this.currentExerciseWeights[3] = this.workWeight;
+        break;
+      case 'sp':
+        this.currentExerciseSets = [2, 1, 1, 1, 3];
+        this.currentExerciseReps = [5, 5, 3, 2, 5];
+        this.currentExerciseWeights[0] = 45;
+        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.11) * 5;
+        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
+        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.17) * 5;
+        this.currentExerciseWeights[4] = this.workWeight;
+        break;
+      case 'pc':
+        this.currentExerciseSets = [2, 1, 1, 1, 5];
+        this.currentExerciseReps = [5, 5, 3, 2, 3];
+        this.currentExerciseWeights[0] = 45;
+        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.11) * 5;
+        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
+        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.17) * 5;
+        this.currentExerciseWeights[4] = this.workWeight;
+        break;
+    }
+    for (var i = 0; i < this.currentExerciseWeights.length; i ++) {
+      if (this.currentExerciseWeights[i] < 45) {
+        this.currentExerciseWeights[i] = 45;
+      }
+    }
+    view.workoutView();
+  },
+
+  exerciseName: function(exercise) {
+    switch (exercise) {
+      case 'sq': return 'Squat';
+      case 'bp': return 'Bench Press';
+      case 'dl': return 'Deadlift';
+      case 'sp': return 'Press';
+      case 'pc': return "Power Clean";
+    }
+  },
+
+  // currently unused, and in any case not working right:
+  //
+  // workoutName: function(worktout) {
+  //   switch(workout) {
+  //     case 'sqBpDl': return 'Squat, Bench Press, Deadlift';
+  //     case 'sqSpPc': return 'Squat, Press, Power Clean';
+  //     // default: throw new Error("Bad workout name.");
+  //   }
+  // },
+
+  nextExercise: function() {
+    if (this.currentWorkout == 'sqBpDl') {
+      switch (this.currentExercise) {
+        case 'sq': this.currentExercise = 'bp'; break;
+        case 'bp': this.currentExercise = 'dl'; break;
+        case 'dl': this.currentExercise = 'done';
+      }
+    } else {
+      switch (this.currentExercise) {
+        case 'sq': this.currentExercise = 'sp'; break;
+        case 'sp': this.currentExercise = 'pc'; break;
+        case 'pc': this.currentExercise = 'done';
+      }
+    }
+  },
+
+  initializeStorage: function() {
+    if (this.currentWorkout == 'sqBpDl') {
+      this.storeExercise = {
+        date: new Date(),
+        workout: 'sqBpDl',
+        exercises: [
+          { exercise: 'sq', currentWeight: 0, nextWeight: 0 },
+          { exercise: 'bp', currentWeight: 0, nextWeight: 0 },
+          { exercise: 'dl', currentWeight: 0, nextWeight: 0 }
+        ]
+      };
+    } else {
+      this.storeExercise = {
+        date: new Date(),
+        workout: 'sqSpPc',
+        exercises: [
+          { exercise: 'sq', currentWeight: 0, nextWeight: 0 },
+          { exercise: 'sp', currentWeight: 0, nextWeight: 0 },
+          { exercise: 'pc', currentWeight: 0, nextWeight: 0 }
+        ]
+      };
+    }
+  },
+
+  recordExercise: function() {
+    console.log('recordExercise next: ' + this.nextWeight);
+    var e = {
+      exercise:      this.currentExercise,
+      currentWeight: this.workWeight,
+      nextWeight:    this.nextWeight
+    };
+    var i = 0;
+    switch (this.currentExercise) {
+      case 'bp': i = 1; break;
+      case 'sp': i = 1; break;
+      case 'dl': i = 2; break;
+      case 'pc': i = 2; break;
+    }
+    this.storeExercise.exercises[i] = e;
+  },
+
+  loadData: function() {
+    this.lastWeights = { sq: {}, bp: {}, dl: {}, sp: {}, pc: {} };
+    this.pastWorkouts = JSON.parse(localStorage.getItem("pastWorkouts"));
+    // console.log('loadData pastWorkouts before: ' + JSON.stringify(this.pastWorkouts, null, 2));
+    if (!this.pastWorkouts) {
+      this.pastWorkouts = [];
+    } else {
+
+      var last = this.pastWorkouts.length - 1;
+      this.lastWeights.sq.nextWeight = this.pastWorkouts[last].exercises[0].nextWeight;
+      this.lastWeights.sq.lastWeight = this.pastWorkouts[last].exercises[0].currentWeight;
+      this.lastWeights.sq.date       = new Date(this.pastWorkouts[last].date);
+
+      var count = this.pastWorkouts.length - 1;
+      var i = count;
+
+      // zipping backwards through the workouts looking for the most recent
+      // of each of the exercises
+      while(!this.lastWeights.bp.nextWeight && i >= 0) {
+        if (this.pastWorkouts[i].exercises[1].exercise == 'bp') {
+          this.lastWeights.bp.nextWeight = this.pastWorkouts[i].exercises[1].nextWeight;
+          this.lastWeights.bp.lastWeight = this.pastWorkouts[i].exercises[1].currentWeight;
+          this.lastWeights.bp.date       = new Date(this.pastWorkouts[i].date);
+        }
+        i --;
+      }
+      i = count;
+      while(!this.lastWeights.dl.nextWeight && i >= 0) {
+        if (this.pastWorkouts[i].exercises[2].exercise == 'dl') {
+          this.lastWeights.dl.nextWeight = this.pastWorkouts[i].exercises[2].nextWeight;
+          this.lastWeights.dl.lastWeight = this.pastWorkouts[i].exercises[2].currentWeight;
+          this.lastWeights.dl.date       = new Date(this.pastWorkouts[i].date);
+        }
+        i --;
+      }
+      i = count;
+      while(!this.lastWeights.sp.nextWeight && i >= 0) {
+        if (this.pastWorkouts[i].exercises[1].exercise == 'sp') {
+          this.lastWeights.sp.nextWeight = this.pastWorkouts[i].exercises[1].nextWeight;
+          this.lastWeights.sp.lastWeight = this.pastWorkouts[i].exercises[1].currentWeight;
+          this.lastWeights.sp.date       = new Date(this.pastWorkouts[i].date);
+        }
+        i --;
+      }
+      i = count;
+      while(!this.lastWeights.pc.nextWeight && i >= 0) {
+        if (this.pastWorkouts[i].exercises[2].exercise == 'pc') {
+          this.lastWeights.pc.nextWeight = this.pastWorkouts[i].exercises[2].nextWeight;
+          this.lastWeights.pc.lastWeight = this.pastWorkouts[i].exercises[2].currentWeight;
+          this.lastWeights.pc.date       = new Date(this.pastWorkouts[i].date);
+        }
+        i --;
+      }
+    // console.log('loadData lastWeights: ' + JSON.stringify(this.lastWeights, null, 4));
+    // throw 'Extra speial pause! ';
+    }
+    this.lastWeights.sq.nextWeight = this.lastWeights.sq.nextWeight || 0;
+    this.lastWeights.bp.nextWeight = this.lastWeights.bp.nextWeight || 0;
+    this.lastWeights.dl.nextWeight = this.lastWeights.dl.nextWeight || 0;
+    this.lastWeights.sp.nextWeight = this.lastWeights.sp.nextWeight || 0;
+    this.lastWeights.pc.nextWeight = this.lastWeights.pc.nextWeight || 0;
+    console.log('loadData lastWeights: ' + JSON.stringify(this.lastWeights, null, 2));
+  },
+
+  saveData: function() {
+    this.storeExercise.date = this.storeExercise.date.valueOf();
+    console.log('saveData storeExercise: ' + JSON.stringify(this.storeExercise, null, 4));
+    this.pastWorkouts.push(this.storeExercise);
+    localStorage.setItem("pastWorkouts", JSON.stringify(this.pastWorkouts));
+  }
+
+};     // end of model
+
+var view = {
+
+  workoutSelectView: function() {
+    model.loadData();
+    $('#workout').hide();
+    $('#selectWorkout').show();
+    $('#weightSelect').hide();
+    $('#nextWeightSelect').hide();
+    $('#doneWorkout').hide();
+  },
+
+  weightInputView: function() {
+    // console.log('weightInputView lastWeights: ' + JSON.stringify(model.lastWeights, null, 2));
+
+    // window.scrollTo(0, 0); //resets the view on iPhone
+    $('#selectWorkout').hide();
+    $('#nextWeightSelect').hide();
+    $('#workout').hide();
+    $('#weightSelect').show();
+    $('#weightInput').focus();
+    // $('#weightReps').hide();
+    // $('#doneExercise').hide();
+    $('#status').html(model.exerciseName(model.currentExercise));
+    $('.note').html('');
+    if (model.lastWeights[model.currentExercise].nextWeight > 0) {
+      $('#weightInput').val(model.lastWeights[model.currentExercise].nextWeight);
+      var date = model.lastWeights[model.currentExercise].date;
+      var monthNames = ["January", "February", "March", "April", "May",
+        "June", "July", "August", "September", "October", "November",
+        "December" ]; // yes apparently we are going here.
+      $('.note').text('You did ' +
+          model.lastWeights[model.currentExercise].lastWeight +
+          ' lbs. on ' + monthNames[date.getMonth()] + ' ' + date.getDate() +
+          ', ' + date.getFullYear() + '.'
+        );
+    }
+  },
+
+  workoutView: function() {
+    var setsTable = $('<table id="weightRepsTable"><tr><td>Sets</td><td>Weight</td><td>Reps</td></tr></table>');
+    for (var i = 0; i < model.currentExerciseSets.length; i ++) {
+      setsTable.append($('<tr><td>' +
+        model.currentExerciseSets[i] + '</td><td>' +
+        model.currentExerciseWeights[i] + '</td><td>' +
+        model.currentExerciseReps[i] + '</td></tr>'));
+    }
+    // $('#weightReps').html(setsTable).show();
+    $('#weightReps').html(setsTable);
+    $('#weightInput').blur();
+    $('#weightSelect').hide();
+    $('#workout').show();
+  },
+
+  nextWeightSelectView: function() {
+    $('#workout').hide();
+    $('#nextWeightSelect').show();
+    $('#nextWeightInput').val(model.workWeight);
+    $('.note').text('You just did ' + model.workWeight + ' lbs.');
+  },
+
+  doneWorkoutView: function() {
+    $('#nextWeightSelect').hide();
+    $('#workout').hide();
+    $('#status').hide();
+    $('#doneWorkout').show();
+
+    var t = '<p>' + model.storeExercise.date.toDateString() + '</p>';
+    // t += '<p>Workout: ' + model.storeExercise.workout + '</p>';
+    // t += '<p>Workout: ' + model.workoutName(model.storeExercise.workout) + '</p>';
+    t += '<table><tr><td></td><td>Today\'s<br>Weight</td><td>Next<br>Weight</td></tr>';
+    // throw new Error('Interrupted');
+    for (var i = 0; i < 3; i ++) {
+      t += '<tr><td>' + model.exerciseName(model.storeExercise.exercises[i].exercise) + '</td><td>' + model.storeExercise.exercises[i].currentWeight + '</td><td>' + model.storeExercise.exercises[i].nextWeight + '</td></tr>';
+    }
+    t += '</table>';
+
+    $('#displayWorkout').html($(t));
+    model.saveData();
+
+  }
+
+}; // end of view
+
+var controller = {
+
+  initializeEvents: function() {
+
+    // workout select screen
+
+    $('#sqBpDl').click(function() {
+      model.currentWorkout = 'sqBpDl';
+      model.currentExercise = 'sq';
+      model.initializeStorage();
+      view.weightInputView();
+    });
+    $('#sqSpPc').click(function() {
+      model.currentWorkout = 'sqSpPc';
+      model.currentExercise = 'sq';
+      model.initializeStorage();
+      view.weightInputView();
+    });
+
+    // weight entry screen
+
+    $('#calculateWeightsButton').click(function() {
+      var weight = $('#weightInput').val();
+      if (weight > 0 && weight < 2000) {
+        model.workWeight = weight;
+        $('#weightInput').val(null);
+        model.calculateSets();
+      }
+    });
+
+
+    // weight display (workout) screen
+
+    $('#doneButton').click(function() {
+
+      if (model.currentExercise == 'done') {
+        view.doneWorkoutView();
+      } else {
+        // view.weightInputView();
+        view.nextWeightSelectView();
+      }
+    });
+
+    $('#backButton').click(function() {
+      $('#weightInput').val(model.workWeight);
+      view.weightInputView();
+    });
+
+
+    // next weight select screen
+
+    $('#nextWeightButton').click(function() {
+
+     var weight = $('#nextWeightInput').val();
+      if (weight > 0 && weight < 2000) {
+        model.nextWeight = weight;
+        $('#nextWeightInput').val(null);
+
+        model.recordExercise();
+        model.workWeight = 0;
+        model.nextExercise();
+        if (model.currentExercise == 'done') {
+          view.doneWorkoutView();
+        } else {
+          view.weightInputView();
+        }
+      }
+
+    });
+
+    $('#backButton').click(function() {
+      // override the stored weight from last time with the current set weight
+      // becasue otherwise weightInputView will override model.workWeight
+      // in #weightInput
+      // model.lastWeights[model.currentExercise].nextWeight = model.workWeight;
+      $('#weightInput').val(model.workWeight);
+      console.log('backButton: ' + model.workWeight)
+      view.weightInputView();
+    });
+
+    // universal
+
+    // hitting the 'return' key will trigger whichever button has
+    // the class 'default-button' that is visible
+    $(window).keypress(function (event) {
+      if (event.which == 13) {
+        $('.default-button:visible').click();
+      }
+    });
+
+    // +/- butttons sould will workon whichever is visible
+
+    $('.inc').click(function() {
+      // this could be pulled out and made a property of controller
+      // but basically, we're working on whichever field is visible
+      var $e = $('.weightInput:visible');
+      if (!$e.val() || $e.val() == 0) {
+        $e.val(45);
+      } else {
+        if ($e.val() < 2000) {
+          // go up to the next multiple of 5:
+          if ($e.val() % 5) {
+            $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
+          } else {
+            $e.val(parseInt($e.val()) + 5);
+          }
+        }
+      }
+    });
+
+    $('.dec').click(function() {
+      var $e = $('.weightInput:visible');
+      if ($e.val() > 45) {
+        if ($e.val() % 5) {
+          $e.val(parseInt($e.val()) - ($e.val() % 5));
+        } else {
+          $e.val(parseInt($e.val()) - 5);
+        }
+      }
+    });
+
+
+
+  } // end of initializeEvents
+
+}; // end of controller
+
+$(function() {
+
+  var test = false;
+  if (test) {
+
+    controller.initializeEvents();
+    // $('#doneWorkout').hide();
+    // model.currentWorkout = 'sqBpDl';
+    // model.currentExercise = 'sq';
+    // model.workWeight = 240;
+    // model.calculateSets();
+    $('#doneWorkout').hide();
+
+      model.currentWorkout = 'sqBpDl';
+      model.currentExercise = 'sq';
+      model.initializeStorage();
+      view.weightInputView();
+
+  } else {
+
+    controller.initializeEvents();
+    view.workoutSelectView();
+
+  }
+
+});
