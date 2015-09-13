@@ -1,5 +1,4 @@
 
-
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -36,7 +35,7 @@
     }
     #wrapper, hgroup {
       position: relative;
-      max-width: 800px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
       text-align: center;
@@ -102,6 +101,7 @@
     header {
       /*background-color: #009;*/
       background-color: #ddd;
+      border-bottom: 1px solid #999;
       /*color: #fff;*/
       height: 68px;
     }
@@ -115,36 +115,23 @@
       margin-left:auto;
       margin-right: auto;
     }
-    .toolbar {
-      color: #777;
-      font-size: .8em;
-      margin-top: 15px;
-    }
-    .left-toolbar {
-      float:left;
-/*      position:relative;
-      top: 100px;
-      left: 100px;*/
-    }
-    .right-toolbar {
-      float: right;
-    }
-/*    #status {
-      float:right;
-      margin: 18px;
-      text-transform: uppercase;
-      font-size: 1.6em;
-    }*/
-    p, input, label {
+
+    input, label {
       font-size: 1.8em;
     }
-    .note {
+/*    p, input, label {
+      font-size: 1.8em;
+    }
+*/    .note {
       font-size: .8em;
       color: #555;
     }
     table {
       font-size: 1.4em;
     }
+
+    /* Buttons */
+
     .button {
       text-align: center;
       text-transform: uppercase;
@@ -169,7 +156,71 @@
       padding: 20px 60px;
     }
 
-    @media screen and (max-width: 600px) {
+    /* Toolbar buttons */
+
+    .toolbar {
+      background-color: transparent;
+      color: #777;
+      font-size: .7em;
+      margin: 15px;
+      padding: 0;
+      border: 0;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .left-toolbar {
+      position:absolute;
+      top: 0;
+      left: 0;
+      /*float:left;*/
+    }
+
+    .right-toolbar {
+      /*float: right;*/
+      position:absolute;
+      top: 0;
+      right: 0;
+    }
+
+    /* Slide-out panels */
+
+    .slider {
+      display: none;
+      box-shadow:  0 0 10px black;
+      background-color: #eee;
+      position: absolute;
+      top: 0;
+      width: 500px;
+      max-width: 90%;
+      height: 100%;
+      overflow: auto;
+      z-index: 2;
+    }
+
+    .slider p, .slider ul {
+      font-size: .8em;
+      padding: 10px 30px;
+    }
+    .slider ul>li {
+      margin-left: 20px;
+    }
+
+    .slider p:first {
+      margin-top: 50px;
+    }
+
+    #help {
+      right: 0;
+      /*border-left: 1px solid gray;*/
+    }
+
+    #account {
+      left: 0;
+      /*border-right: 1px solid gray;*/
+    }
+
+    @media screen and (max-width: 500px) {
       body {
           font-size: 1em;
       }

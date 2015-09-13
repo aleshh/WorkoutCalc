@@ -3,6 +3,7 @@ var model = {
   currentExerciseWeights: [],
   lastWeights: {},
   // pastWorkouts: [],
+
   calculateSets: function() {
     switch(this.currentExercise) {
       case 'sq':
@@ -70,14 +71,15 @@ var model = {
   },
 
   // currently unused, and in any case not working right:
-  //
-  // workoutName: function(worktout) {
-  //   switch(workout) {
-  //     case 'sqBpDl': return 'Squat, Bench Press, Deadlift';
-  //     case 'sqSpPc': return 'Squat, Press, Power Clean';
-  //     // default: throw new Error("Bad workout name.");
-  //   }
-  // },
+  // trying to use this, we'll see if it works 2015-09-11
+
+  workoutName: function(worktout) {
+    switch(workout) {
+      case 'sqBpDl': return 'Squat, Bench Press, Deadlift';
+      case 'sqSpPc': return 'Squat, Press, Power Clean';
+      // default: throw new Error("Bad workout name.");
+    }
+  },
 
   nextExercise: function() {
     if (this.currentWorkout == 'sqBpDl') {
@@ -139,7 +141,7 @@ var model = {
   loadData: function() {
     this.lastWeights = { sq: {}, bp: {}, dl: {}, sp: {}, pc: {} };
     this.pastWorkouts = JSON.parse(localStorage.getItem("pastWorkouts"));
-    // console.log('loadData pastWorkouts before: ' + JSON.stringify(this.pastWorkouts, null, 2));
+    console.log('loadData pastWorkouts before: ' + JSON.stringify(this.pastWorkouts, null, 2));
     if (!this.pastWorkouts) {
       this.pastWorkouts = [];
     } else {
@@ -197,7 +199,7 @@ var model = {
     this.lastWeights.dl.nextWeight = this.lastWeights.dl.nextWeight || 0;
     this.lastWeights.sp.nextWeight = this.lastWeights.sp.nextWeight || 0;
     this.lastWeights.pc.nextWeight = this.lastWeights.pc.nextWeight || 0;
-    console.log('loadData lastWeights: ' + JSON.stringify(this.lastWeights, null, 2));
+    // console.log('loadData lastWeights: ' + JSON.stringify(this.lastWeights, null, 2));
   },
 
   saveData: function() {
@@ -205,6 +207,18 @@ var model = {
     console.log('saveData storeExercise: ' + JSON.stringify(this.storeExercise, null, 4));
     this.pastWorkouts.push(this.storeExercise);
     localStorage.setItem("pastWorkouts", JSON.stringify(this.pastWorkouts));
+  },
+
+  parseDate: function(date) {
+
+    if (typeof date === 'number') {
+      date = new Date(date);
+    }
+    var monthNames = ["January", "February", "March", "April", "May",
+      "June", "July", "August", "September", "October", "November",
+      "December" ]; // yes apparently we are going here.
+    return monthNames[date.getMonth()] + ' ' + date.getDate() +
+      ', ' + date.getFullYear();
   }
 
 };     // end of model
@@ -234,15 +248,11 @@ var view = {
     $('#status').html(model.exerciseName(model.currentExercise));
     $('.note').html('');
     if (model.lastWeights[model.currentExercise].nextWeight > 0) {
-      $('#weightInput').val(model.lastWeights[model.currentExercise].nextWeight);
-      var date = model.lastWeights[model.currentExercise].date;
-      var monthNames = ["January", "February", "March", "April", "May",
-        "June", "July", "August", "September", "October", "November",
-        "December" ]; // yes apparently we are going here.
+      $('#weightInput').
+        val(model.lastWeights[model.currentExercise].nextWeight);
       $('.note').text('You did ' +
-          model.lastWeights[model.currentExercise].lastWeight +
-          ' lbs. on ' + monthNames[date.getMonth()] + ' ' + date.getDate() +
-          ', ' + date.getFullYear() + '.'
+          model.lastWeights[model.currentExercise].lastWeight + ' lbs. on ' +
+          model.parseDate(model.lastWeights[model.currentExercise].date) + '.'
         );
     }
   },
@@ -288,6 +298,29 @@ var view = {
     $('#displayWorkout').html($(t));
     model.saveData();
 
+  },
+
+  showPastWorkouts() {
+    if (model.pastWorkouts.length == 0) {
+      o = '<p>There are currently no workouts stored. Workouts are recorded in browser storage on your device, so you will need to use the same browser to access your data in the future.</p>';
+    } else {
+      o = '<ul>';
+      for (var i = model.pastWorkouts.length-1; i >= 0; i --) {
+
+        // console.log(model.pastWorkouts);
+
+        o += '<li>' + model.parseDate(model.pastWorkouts[i].date) + '<ul>';
+        // o += '<p>' + model.workoutName(model.pastWorkouts[i].workout) + '</p>';
+        for (var j = 0; j < 3; j ++) {
+          o += '<li>' + model.exerciseName(model.pastWorkouts[i].exercises[j].exercise) + ': ';
+          o += model.pastWorkouts[i].exercises[j].currentWeight + '; ';
+          o += model.pastWorkouts[i].exercises[j].nextWeight + '</li>';
+        }
+        o += '</ul></li>';
+      }
+      o += '</ul>';
+    }
+    $('#pastWorkouts').html($(o));
   }
 
 }; // end of view
@@ -295,6 +328,26 @@ var view = {
 var controller = {
 
   initializeEvents: function() {
+
+    // slide-out panels
+
+    $('.help-button').click(function() {
+      $('#help').show();
+      $('#account').hide();
+    });
+
+    $('.account-button').click(function() {
+      $('#account').show();
+      view.showPastWorkouts();
+      $('#help').hide();
+    });
+
+    $('.close-button').click(function() {
+      $('#help   ').hide();
+      $('#account').hide();
+    });
+
+    //
 
     // workout select screen
 
