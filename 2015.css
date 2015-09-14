@@ -15,13 +15,14 @@
       margin: 0;
       padding: 0;
       border: 0;
-      /*font-size: 100%;*/
-      /*font: inherit;*/
+      font-size: 100%;
+      font: inherit;
       vertical-align: baseline;
     }
     /* end of Eric Meyer’s CSS Reset 2.0*/
     body {
       font-size: 1.4em;
+      color: #009;
     }
     body, textarea, input {
         font-family: 'Muli', sans-serif;
@@ -33,6 +34,7 @@
     dd, dt {
       display: inline;
     }
+    a { color: #009;}
     #wrapper, hgroup {
       position: relative;
       max-width: 600px;
@@ -53,6 +55,10 @@
         text-align: right;
         font-size: 1.2em;
         width: 3em; /* don't need this if input is text, only for number*/
+        color: #009;
+        border: 3px solid #009;
+        position: relative;
+        top: 5px;
     }
     input:focus {
       outline: none;
@@ -100,8 +106,8 @@
     }
     header {
       /*background-color: #009;*/
-      background-color: #ddd;
-      border-bottom: 1px solid #999;
+      background-color: #fff;
+      border-bottom: 3px solid #009;
       /*color: #fff;*/
       height: 68px;
     }
@@ -124,7 +130,7 @@
     }
 */    .note {
       font-size: .8em;
-      color: #555;
+      /*color: #555;*/
     }
     table {
       font-size: 1.4em;
@@ -152,7 +158,10 @@
     }
 
     .default-button {
-      background-color: #090;
+      background-color: #fff;
+      border: 3px solid #009;
+      color: #009;
+      font-weight: bold;
       padding: 20px 60px;
     }
 
@@ -160,7 +169,7 @@
 
     .toolbar {
       background-color: transparent;
-      color: #777;
+      color: #009;
       font-size: .7em;
       margin: 15px;
       padding: 0;
@@ -187,8 +196,8 @@
 
     .slider {
       display: none;
-      box-shadow:  0 0 10px black;
-      background-color: #eee;
+      /*box-shadow:  0 0 10px black;*/
+      background-color: #fff;
       position: absolute;
       top: 0;
       width: 500px;
@@ -212,12 +221,12 @@
 
     #help {
       right: 0;
-      /*border-left: 1px solid gray;*/
+      border-left: 3px solid #009;
     }
 
     #account {
       left: 0;
-      /*border-right: 1px solid gray;*/
+      border-right: 3px solid #009;
     }
 
     @media screen and (max-width: 500px) {
