@@ -141,7 +141,8 @@ var model = {
   loadData: function() {
     this.lastWeights = { sq: {}, bp: {}, dl: {}, sp: {}, pc: {} };
     this.pastWorkouts = JSON.parse(localStorage.getItem("pastWorkouts"));
-    console.log('loadData pastWorkouts before: ' + JSON.stringify(this.pastWorkouts, null, 2));
+    //this line outputs all stored workouts to console:
+    //console.log('loadData pastWorkouts before: ' + JSON.stringify(this.pastWorkouts, null, 2));
     if (!this.pastWorkouts) {
       this.pastWorkouts = [];
     } else {
@@ -318,9 +319,20 @@ var view = {
         }
         o += '</ul></li>';
       }
-      o += '</ul>';
+      o += '</ul><button type="button" class="button reset-button" >Reset</button>';
     }
     $('#pastWorkouts').html($(o));
+
+    // event handler for reset button just created
+
+    $('.reset-button').click(function() {
+      if (window.confirm("Delete all locally stored workout data?")) {
+        console.log("Deleting local storage!");
+        localStorage.removeItem("pastWorkouts");
+        $('#pastWorkouts').html($('<p>Workouts deleted.</p>'));
+      }
+    });
+
   }
 
 }; // end of view
@@ -347,7 +359,6 @@ var controller = {
       $('#account').hide();
     });
 
-    //
 
     // workout select screen
 
@@ -435,7 +446,7 @@ var controller = {
       }
     });
 
-    // +/- butttons sould will workon whichever is visible
+    // +/- butttons sould will work on whichever is visible
 
     $('.inc').click(function() {
       // this could be pulled out and made a property of controller
