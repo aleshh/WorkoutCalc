@@ -283,7 +283,8 @@ var view = {
   doneWorkoutView: function() {
     $('#nextWeightSelect').hide();
     $('#workout').hide();
-    $('#status').hide();
+    // $('#status').hide();
+    $('#status').html('Warmup Calc: Done');
     $('#doneWorkout').show();
 
     var t = '<p>' + model.storeExercise.date.toDateString() + '</p>';
@@ -310,14 +311,14 @@ var view = {
 
         // console.log(model.pastWorkouts);
 
-        o += '<li>' + model.parseDate(model.pastWorkouts[i].date) + '<ul>';
+        o += '<p><b>' + model.parseDate(model.pastWorkouts[i].date) + '</b><ul>';
         // o += '<p>' + model.workoutName(model.pastWorkouts[i].workout) + '</p>';
         for (var j = 0; j < 3; j ++) {
-          o += '<li>' + model.exerciseName(model.pastWorkouts[i].exercises[j].exercise) + ': ';
-          o += model.pastWorkouts[i].exercises[j].currentWeight + '; ';
-          o += model.pastWorkouts[i].exercises[j].nextWeight + '</li>';
+          o += '<li><b>' + model.exerciseName(model.pastWorkouts[i].exercises[j].exercise) + ':</b> ';
+          o += model.pastWorkouts[i].exercises[j].currentWeight + ' lbs. worked<br>  (';
+          o += model.pastWorkouts[i].exercises[j].nextWeight + ' lbs. saved for next time)</li>';
         }
-        o += '</ul></li>';
+        o += '</ul></p>';
       }
       o += '</ul><button type="button" class="button reset-button" >Reset</button>';
     }
@@ -358,7 +359,6 @@ var controller = {
       $('#help   ').hide();
       $('#account').hide();
     });
-
 
     // workout select screen
 
