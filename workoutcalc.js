@@ -302,7 +302,7 @@ var view = {
 
   },
 
-  showPastWorkouts() {
+  showPastWorkouts: function() {
     if (model.pastWorkouts.length == 0) {
       o = '<p>There are currently no workouts stored. Workouts are recorded in browser storage on your device, so you will need to use the same browser to access your data in the future.</p>';
     } else {
