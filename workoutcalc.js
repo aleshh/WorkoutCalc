@@ -64,7 +64,7 @@ var model = {
     switch (exercise) {
       case 'sq': return 'Squat';
       case 'bp': return 'Bench Press';
-      case 'dl': return 'Deadlift';
+      case 'dl': return 'Dead&shy;lift';
       case 'sp': return 'Press';
       case 'pc': return "Power Clean";
     }
@@ -288,12 +288,17 @@ var view = {
     $('#doneWorkout').show();
 
     var t = '<p>' + model.storeExercise.date.toDateString() + '</p>';
-    // t += '<p>Workout: ' + model.storeExercise.workout + '</p>';
-    // t += '<p>Workout: ' + model.workoutName(model.storeExercise.workout) + '</p>';
+    t += "<p>Workout stored</p><br>"
     t += '<table><tr><td></td><td>Today\'s<br>Weight</td><td>Next<br>Weight</td></tr>';
-    // throw new Error('Interrupted');
+
     for (var i = 0; i < 3; i ++) {
-      t += '<tr><td>' + model.exerciseName(model.storeExercise.exercises[i].exercise) + '</td><td>' + model.storeExercise.exercises[i].currentWeight + '</td><td>' + model.storeExercise.exercises[i].nextWeight + '</td></tr>';
+      t += '<tr><td>';
+      t += model.exerciseName(model.storeExercise.exercises[i].exercise);
+      t += '</td><td>';
+      t += model.storeExercise.exercises[i].currentWeight;
+      t += '</td><td>';
+      t += model.storeExercise.exercises[i].nextWeight;
+      t += '</td></tr>';
     }
     t += '</table>';
 
@@ -306,21 +311,20 @@ var view = {
     if (model.pastWorkouts.length == 0) {
       o = '<p>There are currently no workouts stored. Workouts are recorded in browser storage on your device, so you will need to use the same browser to access your data in the future.</p>';
     } else {
-      o = '<ul>';
+      o = '';
+
       for (var i = model.pastWorkouts.length-1; i >= 0; i --) {
-
-        // console.log(model.pastWorkouts);
-
-        o += '<p><b>' + model.parseDate(model.pastWorkouts[i].date) + '</b><ul>';
-        // o += '<p>' + model.workoutName(model.pastWorkouts[i].workout) + '</p>';
+        o += '<p><b>' + model.parseDate(model.pastWorkouts[i].date) + '</b></p><ul>';
         for (var j = 0; j < 3; j ++) {
           o += '<li><b>' + model.exerciseName(model.pastWorkouts[i].exercises[j].exercise) + ':</b> ';
           o += model.pastWorkouts[i].exercises[j].currentWeight + ' lbs. worked<br>  (';
           o += model.pastWorkouts[i].exercises[j].nextWeight + ' lbs. saved for next time)</li>';
         }
-        o += '</ul></p>';
+        o += '</ul>';
       }
-      o += '</ul><button type="button" class="button reset-button" >Reset</button>';
+
+
+      o += '<button type="button" class="button reset-button" >Reset</button>';
     }
     $('#pastWorkouts').html($(o));
 
@@ -341,6 +345,9 @@ var view = {
 var controller = {
 
   initializeEvents: function() {
+
+    // prevent scrolling on mobile
+    document.ontouchmove = function(e) {e.preventDefault()};
 
     // slide-out panels
 
@@ -476,8 +483,6 @@ var controller = {
         }
       }
     });
-
-
 
   } // end of initializeEvents
 
