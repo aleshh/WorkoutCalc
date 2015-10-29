@@ -230,6 +230,7 @@ var view = {
     model.loadData();
     $('#workout').hide();
     $('#selectWorkout').show();
+    $('#status').html('Workout Calc');
     $('#weightSelect').hide();
     $('#nextWeightSelect').hide();
     $('#doneWorkout').hide();
@@ -318,7 +319,7 @@ var view = {
         for (var j = 0; j < 3; j ++) {
           o += '<li><b>' + model.exerciseName(model.pastWorkouts[i].exercises[j].exercise) + ':</b> ';
           o += model.pastWorkouts[i].exercises[j].currentWeight + ' lbs. worked<br>  (';
-          o += model.pastWorkouts[i].exercises[j].nextWeight + ' lbs. saved for next time)</li>';
+          o += model.pastWorkouts[i].exercises[j].nextWeight + ' lbs. set for next time)</li>';
         }
         o += '</ul>';
       }
@@ -441,6 +442,16 @@ var controller = {
       $('#weightInput').val(model.workWeight);
       console.log('backButton: ' + model.workWeight)
       view.weightInputView();
+    });
+
+
+    // WorkoutDone
+
+    $('#resetButton').click(function() {
+      model.currentExerciseWeights = [];
+
+      view.workoutSelectView();
+
     });
 
     // universal
