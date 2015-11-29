@@ -20,7 +20,7 @@
 
     body {
       font-size: 1.4em;
-      color: #009;
+      color: #61217f;
     }
 
     body, textarea, input {
@@ -32,7 +32,7 @@
       font-family: 'Montserrat', sans-serif;
     }
 
-    a { color: #009;}
+    a { color: #61217f;}
 
     #wrapper, hgroup {
       position: relative;
@@ -54,8 +54,8 @@
         text-align: right;
         font-size: 1.2em;
         width: 3em;
-        color: #009;
-        border: 3px solid #009;
+        color: #61217f;
+        border: 3px solid #61217f;
         position: relative;
         top: 5px;
     }
@@ -107,7 +107,7 @@
     }
     header {
       background-color: #fff;
-      border-bottom: 3px solid #009;
+      border-bottom: 3px solid #61217f;
       height: 68px;
     }
     h1 {
@@ -134,10 +134,10 @@
     .button {
       text-align: center;
       text-transform: uppercase;
-      background-color:#009;
+      background-color:#61217f;
       color: #fff;
       font-size: 1em;
-      border: 3px solid #009;
+      border: 3px solid #61217f;
       border-radius: 10px;
       padding: 20px 30px;
       margin: 20px 0;
@@ -156,8 +156,8 @@
 
     .default-button {
       background-color: #fff;
-      color: #009;
-      border: 3px solid #009;
+      color: #61217f;
+      border: 3px solid #61217f;
       font-weight: bold;
       padding: 20px 60px;
     }
@@ -173,7 +173,7 @@
 
     .toolbar {
       background-color: transparent;
-      color: #009;
+      color: #61217f;
       font-size: .7em;
       margin: 15px;
       padding: 0;
@@ -238,12 +238,12 @@
 
     #help {
       right: 0;
-      border-left: 3px solid #009;
+      border-left: 3px solid #61217f;
     }
 
     #account {
       left: 0;
-      border-right: 3px solid #009;
+      border-right: 3px solid #61217f;
     }
 
     @media screen and (max-width: 500px) {
