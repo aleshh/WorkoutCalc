@@ -45,6 +45,7 @@
       <h1 id="status">Workout Calc</h1>
     </hgroup>
   </header>
+
   <div id="wrapper">
 
     <div id="selectWorkout">
@@ -99,43 +100,41 @@
 
   </div>
 
-    <div id="help" class="slider right">
+  <div id="help" class="slider right">
 
+    <button type="button" class="toolbar right-toolbar close-button">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+      </span>
+    </button>
 
-      <button type="button" class="toolbar right-toolbar close-button">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-times fa-stack-1x fa-inverse"></i>
-        </span>
-      </button>
+    <h1>About</h1>
 
-      <h1>About</h1>
+    <p>WorkoutCalc calculates weights for the <a href="http://startingstrength.wikia.com/wiki/Starting_Strength_Wiki" target="_blank">Starting Strength</a> program created by Mark Rippetoe.</p>
+    <p>There are two different workouts, each of three exercises.</p>
+    <p>Input your target work weight, and your warmup weights will be calculated and dsiplayed.</p>
+    <p>After your workout, enter the weight you'd like to do next time.</p>
+    <p>Your workouts will be stored in your web browser and remembered for next time.</p>
+    <p>Created by <a href="http://alesh.com">Alesh Houdek</a>.</p>
+    <p><a href="mailto:mail@alesh.com">Send feedback</a></p>
 
-      <p>WorkoutCalc calculates weights for the <a href="http://startingstrength.wikia.com/wiki/Starting_Strength_Wiki" target="_blank">Starting Strength</a> program created by Mark Rippetoe.</p>
-      <p>There are two different workouts, each of three exercises.</p>
-      <p>Input your target work weight, and your warmup weights will be calculated and dsiplayed.</p>
-      <p>After your workout, enter the weight you'd like to do next time.</p>
-      <p>Your workouts will be stored in your web browser and remembered for next time.</p>
-      <p>Created by <a href="http://alesh.com">Alesh Houdek</a>.</p>
-      <p><a href="mailto:mail@alesh.com">Send feedback</a></p>
+  </div>
 
-    </div>
+  <div id="account" class="slider left">
 
-    <div id="account" class="slider left">
-
-      <button type="button" class="toolbar left-toolbar close-button">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-times fa-stack-1x fa-inverse"></i>
-        </span>
-      </button>
+    <button type="button" class="toolbar left-toolbar close-button">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+      </span>
+    </button>
 
     <h1>Stored Workouts</h1>
 
     <div id="pastWorkouts"></div>
 
-
-    </div>
+  </div>
 
 </body>
 </html>

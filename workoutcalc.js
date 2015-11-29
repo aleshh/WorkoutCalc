@@ -70,9 +70,6 @@ var model = {
     }
   },
 
-  // currently unused, and in any case not working right:
-  // trying to use this, we'll see if it works 2015-09-11
-
   workoutName: function(worktout) {
     switch(workout) {
       case 'sqBpDl': return 'Squat, Bench Press, Deadlift';
@@ -192,8 +189,6 @@ var model = {
         }
         i --;
       }
-    // console.log('loadData lastWeights: ' + JSON.stringify(this.lastWeights, null, 4));
-    // throw 'Extra speial pause! ';
     }
     this.lastWeights.sq.nextWeight = this.lastWeights.sq.nextWeight || 0;
     this.lastWeights.bp.nextWeight = this.lastWeights.bp.nextWeight || 0;
@@ -217,7 +212,7 @@ var model = {
     }
     var monthNames = ["January", "February", "March", "April", "May",
       "June", "July", "August", "September", "October", "November",
-      "December" ]; // yes apparently we are going here.
+      "December" ];
     return monthNames[date.getMonth()] + ' ' + date.getDate() +
       ', ' + date.getFullYear();
   }
