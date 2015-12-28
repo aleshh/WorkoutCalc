@@ -23,6 +23,8 @@
 
   <script src="workoutcalc.js"></script>
 
+
+
 </head>
 <body>
   <header>
@@ -45,7 +47,6 @@
       <h1 id="status">Workout Calc</h1>
     </hgroup>
   </header>
-
   <div id="wrapper">
 
     <div id="selectWorkout">
@@ -85,7 +86,7 @@
     <div id="nextWeightSelect">
       Weight for next time:<br>
         <button type="button" class="button dec" >&minus;</button>
-        <input class="weightInput" id="nextWeightInput" size="5" step="5" min="45" max="2000" type="number" > lbs.
+        <input type="text" pattern="\d*" class="weightInput" id="nextWeightInput" size="5" step="5" min="45" max="2000" > lbs.
         <button type="button" class="button inc" >+</button>
       <p class="note"></p>
       <button type="button" class="button default-button" id="nextWeightButton">OK &gt;</button>

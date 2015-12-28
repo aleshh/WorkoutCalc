@@ -70,14 +70,6 @@ var model = {
     }
   },
 
-  workoutName: function(worktout) {
-    switch(workout) {
-      case 'sqBpDl': return 'Squat, Bench Press, Deadlift';
-      case 'sqSpPc': return 'Squat, Press, Power Clean';
-      // default: throw new Error("Bad workout name.");
-    }
-  },
-
   nextExercise: function() {
     if (this.currentWorkout == 'sqBpDl') {
       switch (this.currentExercise) {
@@ -496,27 +488,26 @@ var controller = {
 
 $(function() {
 
-  var test = false;
-  if (test) {
+  var cordova = false;
 
-    controller.initializeEvents();
-    // $('#doneWorkout').hide();
-    // model.currentWorkout = 'sqBpDl';
-    // model.currentExercise = 'sq';
-    // model.workWeight = 240;
-    // model.calculateSets();
-    $('#doneWorkout').hide();
+  if (cordova) {
 
-      model.currentWorkout = 'sqBpDl';
-      model.currentExercise = 'sq';
-      model.initializeStorage();
-      view.weightInputView();
+    FastClick.attach(document.body);
 
-  } else {
+    $("#startingStrength").click(function(){
+      $('body').css("background-color", "black");
+      cordova.InAppBrowser.open("http://startingstrength.wikia.com/wiki/Starting_Strength_Wiki", "_system");
+    });
+
+    $("#alesh").click(function(){
+      $('body').css("background-color", "black");
+      cordova.InAppBrowser.open("http://alesh.com", "_system");
+    });
+
+  }
 
     controller.initializeEvents();
     view.workoutSelectView();
 
-  }
 
 });
