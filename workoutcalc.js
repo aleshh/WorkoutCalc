@@ -1,5 +1,6 @@
 var model = {
   exercises: ['sq', 'bp', 'dl', 'sp', 'pc'],
+  lbs: true;
   currentExerciseWeights: [],
   lastWeights: {},
   // pastWorkouts: [],
@@ -9,46 +10,80 @@ var model = {
       case 'sq':
         this.currentExerciseSets = [2, 1, 1, 1, 3];
         this.currentExerciseReps = [5, 5, 3, 2, 5];
-        this.currentExerciseWeights[0] = 45;
-        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.08) * 5;
-        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.12) * 5;
-        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.16) * 5;
+        if (this.lbs) {
+          this.currentExerciseWeights[0] = 45;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.08) * 5;
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.12) * 5;
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.16) * 5;
+        } else {
+          this.currentExerciseWeights[0] = 20;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.4);
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.6);
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.8);
+        }
         this.currentExerciseWeights[4] = this.workWeight;
         break;
       case 'bp':
         this.currentExerciseSets = [2, 1, 1, 1, 3];
         this.currentExerciseReps = [5, 5, 3, 2, 5];
-        this.currentExerciseWeights[0] = 45;
-        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.1) * 5;
-        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
-        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.18) * 5;
+        if (this.lbs) {
+          this.currentExerciseWeights[0] = 45;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.1) * 5;
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.18) * 5;
+        } else {
+          this.currentExerciseWeights[0] = 20;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.5);
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.7);
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.9);
+        }
         this.currentExerciseWeights[4] = this.workWeight;
         break;
       case 'dl':
         this.currentExerciseSets = [2, 1, 1, 1];
         this.currentExerciseReps = [5, 3, 2, 5];
         this.currentExerciseWeights = [];
-        this.currentExerciseWeights[0] = Math.floor(this.workWeight * 0.08) * 5;
-        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.12) * 5;
-        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.17) * 5;
+        if (this.lbs) {
+          this.currentExerciseWeights[0] = Math.floor(this.workWeight * 0.08) * 5;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.12) * 5;
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.17) * 5;
+        } else {
+          this.currentExerciseWeights[0] = Math.floor(this.workWeight * 0.4);
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.6);
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.85);
+        }
         this.currentExerciseWeights[3] = this.workWeight;
         break;
       case 'sp':
         this.currentExerciseSets = [2, 1, 1, 1, 3];
         this.currentExerciseReps = [5, 5, 3, 2, 5];
-        this.currentExerciseWeights[0] = 45;
-        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.11) * 5;
-        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
-        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.17) * 5;
+        if (this.lbs) {
+          this.currentExerciseWeights[0] = 45;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.11) * 5;
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.17) * 5;
+        } else {
+          this.currentExerciseWeights[0] = 20;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.55);
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.7);
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.85);
+        }
         this.currentExerciseWeights[4] = this.workWeight;
         break;
       case 'pc':
         this.currentExerciseSets = [2, 1, 1, 1, 5];
         this.currentExerciseReps = [5, 5, 3, 2, 3];
-        this.currentExerciseWeights[0] = 45;
-        this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.11) * 5;
-        this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
-        this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.17) * 5;
+        if (this.lbs) {
+          this.currentExerciseWeights[0] = 45;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.11) * 5;
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.14) * 5;
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.17) * 5;
+        } else {
+          this.currentExerciseWeights[0] = 20;
+          this.currentExerciseWeights[1] = Math.floor(this.workWeight * 0.55);
+          this.currentExerciseWeights[2] = Math.floor(this.workWeight * 0.7);
+          this.currentExerciseWeights[3] = Math.floor(this.workWeight * 0.85);
+        }
         this.currentExerciseWeights[4] = this.workWeight;
         break;
     }
@@ -508,6 +543,5 @@ $(function() {
 
     controller.initializeEvents();
     view.workoutSelectView();
-
 
 });

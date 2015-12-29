@@ -11,6 +11,7 @@ Calculates warm-up weights and sets for Starting Strength. Uses Local Storage to
 - [ ] utility function to delete local data
 
 ## Log
+2015-11-27 Created iOS version with Cordova
 2015-09-13 Added sidebar sliders that display help info, stored date
 2015-07-08 separated out js css html files, created readme.md
 2015-06-11 stored value bugfix, status bar changes
