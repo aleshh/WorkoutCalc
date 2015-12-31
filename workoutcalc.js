@@ -1,9 +1,8 @@
 var model = {
   exercises: ['sq', 'bp', 'dl', 'sp', 'pc'],
-  lbs: true;
+  lbs: true,
   currentExerciseWeights: [],
   lastWeights: {},
-  // pastWorkouts: [],
 
   calculateSets: function() {
     switch(this.currentExercise) {
@@ -105,6 +104,34 @@ var model = {
     }
   },
 
+  switchUnits: function() {
+    this.lbs = !this.lbs;
+    if (this.lbs) {
+      localStorage.setItem("units", "pounds");
+    } else {
+      localStorage.setItem("units", "kilograms");
+    }
+  },
+
+  units: function() {
+    return this.lbs ? 'lbs.' : 'kg.';
+  },
+
+  unitsLong: function(current) {
+    // this will return the current unit if parameter is true or undefined
+    // or the opposite unit if parameter is false
+    current = typeof current !== 'undefined' ? current : true;
+    if (current) {
+      return this.lbs ? 'Pounds' : 'Kilograms';
+    } else {
+      return !this.lbs ? 'Pounds' : 'Kilograms';
+    }
+  },
+
+  unitsLongOpposite: function() {
+    return !this.lbs ? 'Pounds' : 'Kilograms';
+  },
+
   nextExercise: function() {
     if (this.currentWorkout == 'sqBpDl') {
       switch (this.currentExercise) {
@@ -146,7 +173,6 @@ var model = {
   },
 
   recordExercise: function() {
-    console.log('recordExercise next: ' + this.nextWeight);
     var e = {
       exercise:      this.currentExercise,
       currentWeight: this.workWeight,
@@ -163,6 +189,13 @@ var model = {
   },
 
   loadData: function() {
+
+    if  (localStorage.getItem("units") == "kilograms") {
+      this.lbs = false;
+    } else {
+      this.lbs = true;
+    }
+
     this.lastWeights = { sq: {}, bp: {}, dl: {}, sp: {}, pc: {} };
     this.pastWorkouts = JSON.parse(localStorage.getItem("pastWorkouts"));
     //this line outputs all stored workouts to console:
@@ -275,7 +308,8 @@ var view = {
       $('#weightInput').
         val(model.lastWeights[model.currentExercise].nextWeight);
       $('.note').text('You did ' +
-          model.lastWeights[model.currentExercise].lastWeight + ' lbs. on ' +
+          model.lastWeights[model.currentExercise].lastWeight + ' ' +
+          model.units() + ' on ' +
           model.parseDate(model.lastWeights[model.currentExercise].date) + '.'
         );
     }
@@ -300,7 +334,7 @@ var view = {
     $('#workout').hide();
     $('#nextWeightSelect').show();
     $('#nextWeightInput').val(model.workWeight);
-    $('.note').text('You just did ' + model.workWeight + ' lbs.');
+    $('.note').text('You just did ' + model.workWeight + ' ' + model.units() );
   },
 
   doneWorkoutView: function() {
@@ -332,7 +366,7 @@ var view = {
 
   showPastWorkouts: function() {
     if (model.pastWorkouts.length == 0) {
-      o = '<p>There are currently no workouts stored. Workouts are recorded in browser storage on your device, so you will need to use the same browser to access your data in the future.</p>';
+      o = '<p>There are currently no workouts stored. Workouts are recorded in browser storage on your device, so you will need to use the same browser to access your data in the future.</p><p>Currently using ' + model.unitsLong() + '.</p>';
     } else {
       o = '';
 
@@ -340,24 +374,36 @@ var view = {
         o += '<p><b>' + model.parseDate(model.pastWorkouts[i].date) + '</b></p><ul>';
         for (var j = 0; j < 3; j ++) {
           o += '<li><b>' + model.exerciseName(model.pastWorkouts[i].exercises[j].exercise) + ':</b> ';
-          o += model.pastWorkouts[i].exercises[j].currentWeight + ' lbs. worked<br>  (';
-          o += model.pastWorkouts[i].exercises[j].nextWeight + ' lbs. set for next time)</li>';
+          o += model.pastWorkouts[i].exercises[j].currentWeight + ' ' +
+                  model.units() + ' worked<br>  ';
+          o += model.pastWorkouts[i].exercises[j].nextWeight  + ' ' +
+                  model.units() + ' set for next time)</li>';
         }
         o += '</ul>';
       }
-
-
       o += '<button type="button" class="button reset-button" >Reset</button>';
     }
+
+    o += '<button type="button" class="button switch-units-button" >Switch to '
+           + model.unitsLongOpposite() + '</button>';
+
     $('#pastWorkouts').html($(o));
 
-    // event handler for reset button just created
+    // event handler for reset button
 
     $('.reset-button').click(function() {
       if (window.confirm("Delete all locally stored workout data?")) {
-        console.log("Deleting local storage!");
         localStorage.removeItem("pastWorkouts");
         $('#pastWorkouts').html($('<p>Workouts deleted.</p>'));
+      }
+    });
+
+    $('.switch-units-button').click(function() {
+      if (window.confirm("This will remove all stored workouts. Proceed?")) {
+        model.switchUnits();
+        localStorage.removeItem("pastWorkouts");
+        $('#pastWorkouts').html($('<p>Units swtiched to '+ model.unitsLong() +
+          '.</p>'));
       }
     });
 

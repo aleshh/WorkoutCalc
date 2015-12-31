@@ -162,7 +162,7 @@
       padding: 20px 60px;
     }
 
-    .reset-button {
+    .reset-button, .switch-units-button {
       font-size: .6em;
       padding: 5px 10px;
       margin-left: 30px;
