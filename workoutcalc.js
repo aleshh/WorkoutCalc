@@ -281,6 +281,25 @@ var model = {
 
 var view = {
 
+  initializeUnits: function() {
+    $('.units').text(model.units());
+    if (model.lbs) {
+      $('.weightInput').attr({
+        "size":   "5",
+        "step":   "5",
+        "min":    "45",
+        "max":    "2000"
+      });
+    } else {
+      $('.weightInput').attr({
+        "size":   "1",
+        "step":   "1",
+        "min":    "20",
+        "max":    "1000"
+      });
+    }
+  },
+
   workoutSelectView: function() {
     model.loadData();
     $('#workout').hide();
@@ -292,9 +311,7 @@ var view = {
   },
 
   weightInputView: function() {
-    // console.log('weightInputView lastWeights: ' + JSON.stringify(model.lastWeights, null, 2));
 
-    // window.scrollTo(0, 0); //resets the view on iPhone
     $('#selectWorkout').hide();
     $('#nextWeightSelect').hide();
     $('#workout').hide();
@@ -587,6 +604,7 @@ $(function() {
 
   }
 
+    // model.loadData(); // currently in workoutSelectView
     controller.initializeEvents();
     view.workoutSelectView();
 

@@ -64,7 +64,11 @@
     <div id="weightSelect">
       Enter weight:<br>
       <button type="button" class="button dec" >&minus;</button>
-      <input type="text" pattern="\d*" class="weightInput" id="weightInput" size="5" step="5" min="45" max="2000" > lbs.
+
+      <input type="text" size="5" pattern="\d*" class="weightInput"
+             id="weightInput" >
+      <span class="units"></span>
+
       <button type="button" class="button inc" >+</button>
       <p class="note"></p>
       <button type="button" class="button default-button" id="calculateWeightsButton">
@@ -83,9 +87,13 @@
 
     <div id="nextWeightSelect">
       Weight for next time:<br>
-        <button type="button" class="button dec" >&minus;</button>
-        <input type="text" pattern="\d*" class="weightInput" id="nextWeightInput" size="5" step="5" min="45" max="2000" > lbs.
-        <button type="button" class="button inc" >+</button>
+      <button type="button" class="button dec" >&minus;</button>
+
+      <input type="text" size="5" pattern="\d*" class="weightInput"
+             id="nextWeightInput" >
+      <span class="units"></span>
+
+      <button type="button" class="button inc" >+</button>
       <p class="note"></p>
       <button type="button" class="button default-button" id="nextWeightButton">OK &gt;</button>
     </div>
