@@ -1,6 +1,7 @@
 var model = {
   exercises: ['sq', 'bp', 'dl', 'sp', 'pc'],
   lbs: true,
+  kgInterval: 1,
   currentExerciseWeights: [],
   lastWeights: {},
 
@@ -282,17 +283,17 @@ var model = {
 var view = {
 
   initializeUnits: function() {
+
     $('.units').text(model.units());
+
     if (model.lbs) {
       $('.weightInput').attr({
-        "size":   "5",
         "step":   "5",
         "min":    "45",
         "max":    "2000"
       });
     } else {
       $('.weightInput').attr({
-        "size":   "1",
         "step":   "1",
         "min":    "20",
         "max":    "1000"
@@ -302,6 +303,8 @@ var view = {
 
   workoutSelectView: function() {
     model.loadData();
+    controller.initializeEvents();
+    view.initializeUnits();
     $('#workout').hide();
     $('#selectWorkout').show();
     $('#status').html('Workout Calc');
@@ -317,8 +320,6 @@ var view = {
     $('#workout').hide();
     $('#weightSelect').show();
     $('#weightInput').focus();
-    // $('#weightReps').hide();
-    // $('#doneExercise').hide();
     $('#status').html(model.exerciseName(model.currentExercise));
     $('.note').html('');
     if (model.lastWeights[model.currentExercise].nextWeight > 0) {
@@ -417,8 +418,14 @@ var view = {
 
     $('.switch-units-button').click(function() {
       if (window.confirm("This will remove all stored workouts. Proceed?")) {
-        model.switchUnits();
+
         localStorage.removeItem("pastWorkouts");
+        model.switchUnits();
+        model.currentExerciseWeights = [];
+
+        view.initializeUnits();
+        view.workoutSelectView();
+
         $('#pastWorkouts').html($('<p>Units swtiched to '+ model.unitsLong() +
           '.</p>'));
       }
@@ -534,7 +541,6 @@ var controller = {
 
     $('#resetButton').click(function() {
       model.currentExerciseWeights = [];
-
       view.workoutSelectView();
 
     });
@@ -551,34 +557,64 @@ var controller = {
 
     // +/- butttons sould will work on whichever is visible
 
-    $('.inc').click(function() {
-      // this could be pulled out and made a property of controller
-      // but basically, we're working on whichever field is visible
-      var $e = $('.weightInput:visible');
-      if (!$e.val() || $e.val() == 0) {
-        $e.val(45);
-      } else {
-        if ($e.val() < 2000) {
-          // go up to the next multiple of 5:
-          if ($e.val() % 5) {
-            $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
-          } else {
-            $e.val(parseInt($e.val()) + 5);
+
+    if (model.lbs) {
+      $('.inc').click(function() {
+        var $e = $('.weightInput:visible');
+        if (!$e.val() || $e.val() == 0) {
+          $e.val(45);
+        } else {
+          if ($e.val() < 2000) {
+            // go up to the next multiple of 5:
+            if ($e.val() % 5) {
+              $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
+            } else {
+              $e.val(parseInt($e.val()) + 5);
+            }
           }
         }
-      }
-    });
+      });
 
-    $('.dec').click(function() {
-      var $e = $('.weightInput:visible');
-      if ($e.val() > 45) {
-        if ($e.val() % 5) {
-          $e.val(parseInt($e.val()) - ($e.val() % 5));
-        } else {
-          $e.val(parseInt($e.val()) - 5);
+      $('.dec').click(function() {
+        var $e = $('.weightInput:visible');
+        if ($e.val() > 45) {
+          if ($e.val() % 5) {
+            $e.val(parseInt($e.val()) - ($e.val() % 5));
+          } else {
+            $e.val(parseInt($e.val()) - 5);
+          }
         }
-      }
-    });
+      });
+
+    } else {
+
+      $('.inc').click(function() {
+        var $e = $('.weightInput:visible');
+        if (!$e.val() || $e.val() == 0) {
+          $e.val(20);
+        } else {
+          if ($e.val() < 1000) {
+            if ($e.val() % 5) {
+              $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
+            } else {
+              $e.val(parseInt($e.val()) + 5);
+            }
+          }
+        }
+      });
+
+      $('.dec').click(function() {
+        var $e = $('.weightInput:visible');
+        if ($e.val() > 45) {
+          if ($e.val() % 5) {
+            $e.val(parseInt($e.val()) - ($e.val() % 5));
+          } else {
+            $e.val(parseInt($e.val()) - 5);
+          }
+        }
+      });
+
+    } // end of if/else model.lbs
 
   } // end of initializeEvents
 
@@ -604,8 +640,6 @@ $(function() {
 
   }
 
-    // model.loadData(); // currently in workoutSelectView
-    controller.initializeEvents();
     view.workoutSelectView();
 
 });
