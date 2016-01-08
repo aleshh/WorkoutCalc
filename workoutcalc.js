@@ -200,7 +200,10 @@ var model = {
   loadData: function() {
 
     if  (localStorage.getItem("units") == "kilograms") {
-      this.lbs = false;
+      this.lbs      = false;
+      this.interval =   1;
+      this.bar      =  20;
+      this.max      = 575;
     } else {
       this.lbs = true;
     }
@@ -311,7 +314,6 @@ var view = {
 
   workoutSelectView: function() {
     model.loadData();
-    controller.initializeEvents();
     view.initializeUnits();
     $('#workout').hide();
     $('#selectWorkout').show();
@@ -331,6 +333,7 @@ var view = {
     $('#status').html(model.exerciseName(model.currentExercise));
     $('.note').html('');
     if (model.lastWeights[model.currentExercise].nextWeight > 0) {
+      console.log("triggering last workout!");
       $('#weightInput').
         val(model.lastWeights[model.currentExercise].nextWeight);
       $('.note').text('You did ' +
@@ -487,7 +490,7 @@ var controller = {
 
     $('#calculateWeightsButton').click(function() {
       var weight = $('#weightInput').val();
-      if (weight > 0 && weight < 2000) {
+      if (weight > 0 && weight < model.max) {
         model.workWeight = weight;
         $('#weightInput').val(null);
         model.calculateSets();
@@ -518,7 +521,7 @@ var controller = {
     $('#nextWeightButton').click(function() {
 
      var weight = $('#nextWeightInput').val();
-      if (weight > 0 && weight < 2000) {
+      if (weight > 0 && weight < model.max) {
         model.nextWeight = weight;
         $('#nextWeightInput').val(null);
 
@@ -531,7 +534,6 @@ var controller = {
           view.weightInputView();
         }
       }
-
     });
 
     $('#backButton').click(function() {
@@ -616,6 +618,7 @@ $(function() {
 
   }
 
+    controller.initializeEvents();
     view.workoutSelectView();
 
 });
