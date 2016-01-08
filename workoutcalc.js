@@ -568,13 +568,14 @@ var controller = {
     $('.inc').click(function() {
       var $e = $('.weightInput:visible');
       if (!$e.val() || $e.val() == 0) {
-        $e.val(20);
+        $e.val(model.bar);
       } else {
-        if ($e.val() < 1000) {
-          if ($e.val() % 5) {
-            $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
+        if ($e.val() < model.max) {
+          if ($e.val() % model.interval) {
+            $e.val(parseInt(
+              $e.val()) + model.interval - ($e.val() % model.interval));
           } else {
-            $e.val(parseInt($e.val()) + 5);
+            $e.val(parseInt($e.val()) + model.interval);
           }
         }
       }
@@ -582,11 +583,11 @@ var controller = {
 
     $('.dec').click(function() {
       var $e = $('.weightInput:visible');
-      if ($e.val() > 45) {
-        if ($e.val() % 5) {
-          $e.val(parseInt($e.val()) - ($e.val() % 5));
+      if ($e.val() > model.bar) {
+        if ($e.val() % model.interval) {
+          $e.val(parseInt($e.val()) - ($e.val() % model.interval));
         } else {
-          $e.val(parseInt($e.val()) - 5);
+          $e.val(parseInt($e.val()) - model.interval);
         }
       }
     });
