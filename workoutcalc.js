@@ -1,7 +1,9 @@
 var model = {
   exercises: ['sq', 'bp', 'dl', 'sp', 'pc'],
   lbs: true,
-  kgInterval: 1,
+  interval: 5,
+  bar: 45,
+  max: 1270,
   currentExerciseWeights: [],
   lastWeights: {},
 
@@ -109,8 +111,14 @@ var model = {
     this.lbs = !this.lbs;
     if (this.lbs) {
       localStorage.setItem("units", "pounds");
+      this.interval =    5;
+      this.bar      =   45;
+      this.max      = 1270;
     } else {
       localStorage.setItem("units", "kilograms");
+      this.interval =   1;
+      this.bar      =  20;
+      this.max      = 575;
     }
   },
 
@@ -557,64 +565,31 @@ var controller = {
 
     // +/- butttons sould will work on whichever is visible
 
-
-    if (model.lbs) {
-      $('.inc').click(function() {
-        var $e = $('.weightInput:visible');
-        if (!$e.val() || $e.val() == 0) {
-          $e.val(45);
-        } else {
-          if ($e.val() < 2000) {
-            // go up to the next multiple of 5:
-            if ($e.val() % 5) {
-              $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
-            } else {
-              $e.val(parseInt($e.val()) + 5);
-            }
-          }
-        }
-      });
-
-      $('.dec').click(function() {
-        var $e = $('.weightInput:visible');
-        if ($e.val() > 45) {
+    $('.inc').click(function() {
+      var $e = $('.weightInput:visible');
+      if (!$e.val() || $e.val() == 0) {
+        $e.val(20);
+      } else {
+        if ($e.val() < 1000) {
           if ($e.val() % 5) {
-            $e.val(parseInt($e.val()) - ($e.val() % 5));
+            $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
           } else {
-            $e.val(parseInt($e.val()) - 5);
+            $e.val(parseInt($e.val()) + 5);
           }
         }
-      });
+      }
+    });
 
-    } else {
-
-      $('.inc').click(function() {
-        var $e = $('.weightInput:visible');
-        if (!$e.val() || $e.val() == 0) {
-          $e.val(20);
+    $('.dec').click(function() {
+      var $e = $('.weightInput:visible');
+      if ($e.val() > 45) {
+        if ($e.val() % 5) {
+          $e.val(parseInt($e.val()) - ($e.val() % 5));
         } else {
-          if ($e.val() < 1000) {
-            if ($e.val() % 5) {
-              $e.val(parseInt($e.val()) + 5 - ($e.val() % 5));
-            } else {
-              $e.val(parseInt($e.val()) + 5);
-            }
-          }
+          $e.val(parseInt($e.val()) - 5);
         }
-      });
-
-      $('.dec').click(function() {
-        var $e = $('.weightInput:visible');
-        if ($e.val() > 45) {
-          if ($e.val() % 5) {
-            $e.val(parseInt($e.val()) - ($e.val() % 5));
-          } else {
-            $e.val(parseInt($e.val()) - 5);
-          }
-        }
-      });
-
-    } // end of if/else model.lbs
+      }
+    });
 
   } // end of initializeEvents
 
