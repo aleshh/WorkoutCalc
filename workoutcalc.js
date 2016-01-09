@@ -333,7 +333,6 @@ var view = {
     $('#status').html(model.exerciseName(model.currentExercise));
     $('.note').html('');
     if (model.lastWeights[model.currentExercise].nextWeight > 0) {
-      console.log("triggering last workout!");
       $('#weightInput').
         val(model.lastWeights[model.currentExercise].nextWeight);
       $('.note').text('You did ' +
@@ -435,6 +434,9 @@ var view = {
         model.currentExerciseWeights = [];
 
         view.initializeUnits();
+        $('#weightInput').val("");
+        $('#nextweightInput').val("");
+        $('#account').hide();
         view.workoutSelectView();
 
         $('#pastWorkouts').html($('<p>Units swtiched to '+ model.unitsLong() +
