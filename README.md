@@ -5,12 +5,9 @@ Calculates warm-up weights and sets for Starting Strength. Uses Local Storage to
 ## ToDo
 
 - [ ] suggest weights combination
-- [X] use keyboard to control weight input
-- [X] fix weight input buttons
-- [X] convert all input divs to buttons
-- [ ] utility function to delete local data
 
 ## Log
+2016-01-10 Added pounds/kilogram switch
 2015-11-27 Created iOS version with Cordova
 2015-09-13 Added sidebar sliders that display help info, stored date
 2015-07-08 separated out js css html files, created readme.md

@@ -574,13 +574,14 @@ $(function() {
 
     FastClick.attach(document.body);
 
-    $("#startingStrength").click(function(){
-      $('body').css("background-color", "black");
+    $("#startingStrength").click(function(event){
+      console.log('prevent default');
+      event.preventDefault();
       cordova.InAppBrowser.open("http://startingstrength.wikia.com/wiki/Starting_Strength_Wiki", "_system");
     });
 
-    $("#alesh").click(function(){
-      $('body').css("background-color", "black");
+    $("#alesh").click(function(event){
+      event.preventDefault();
       cordova.InAppBrowser.open("http://alesh.com", "_system");
     });
 
