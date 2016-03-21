@@ -73,6 +73,13 @@ var model = {
     }
   },
 
+  workoutName: function(workout) {
+    switch (workout) {
+      case 'sqBpDl': return 'Squat &middot; Bench Press &middot; Deadlift';
+      case 'sqSpPc': return 'Squat &middot; Press &middot; Power&nbsp;Clean';
+    }
+  },
+
   switchUnits: function() {
     this.lbs = !this.lbs;
     if (this.lbs) {
@@ -243,6 +250,10 @@ var model = {
     localStorage.setItem("pastWorkouts", JSON.stringify(this.pastWorkouts));
   },
 
+  lastWorkout: function() {
+    return model.pastWorkouts[model.pastWorkouts.length-1];
+  },
+
   parseDate: function(date) {
 
     if (typeof date === 'number') {
@@ -287,6 +298,10 @@ var view = {
     $('#weightSelect').hide();
     $('#nextWeightSelect').hide();
     $('#doneWorkout').hide();
+    $('.note').html('Last workout: <br><strong>' +
+        model.workoutName(model.lastWorkout().workout) + '</strong><br>' +
+        model.parseDate(model.lastWorkout().date) + '.'
+      );
   },
 
   weightInputView: function() {
@@ -335,7 +350,7 @@ var view = {
     $('#nextWeightSelect').hide();
     $('#workout').hide();
     // $('#status').hide();
-    $('#status').html('Warmup Calc: Done');
+    $('#status').html('Done');
     $('#doneWorkout').show();
 
     var t = '<p>' + model.storeExercise.date.toDateString() + '</p>';
