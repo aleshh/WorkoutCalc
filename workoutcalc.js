@@ -254,6 +254,12 @@ var model = {
     return model.pastWorkouts[model.pastWorkouts.length-1];
   },
 
+  daysSinceLastWorkout: function() {
+    today = new Date();
+    time = today - model.lastWorkout().date;
+    return Math.floor(time / (1000*60*60*24));
+  },
+
   parseDate: function(date) {
 
     if (typeof date === 'number') {
@@ -300,7 +306,8 @@ var view = {
     $('#doneWorkout').hide();
     $('.note').html('Last workout: <br><strong>' +
         model.workoutName(model.lastWorkout().workout) + '</strong><br>' +
-        model.parseDate(model.lastWorkout().date) + '.'
+        model.parseDate(model.lastWorkout().date) + '.<br>' +
+        model.daysSinceLastWorkout() + ' days'
       );
   },
 
