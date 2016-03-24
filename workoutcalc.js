@@ -255,9 +255,27 @@ var model = {
   },
 
   daysSinceLastWorkout: function() {
-    today = new Date();
-    time = today - model.lastWorkout().date;
-    return Math.floor(time / (1000*60*60*24));
+
+    var first = new Date(model.lastWorkout().date);
+    var second = new Date();
+
+    // Copy date parts of the timestamps, discarding the time parts.
+    var one = new Date(first.getFullYear(), first.getMonth(), first.getDate());
+    var two = new Date(second.getFullYear(), second.getMonth(), second.getDate());
+
+    // Do the math.
+    var millisecondsPerDay = 1000 * 60 * 60 * 24;
+    var millisBetween = two.getTime() - one.getTime();
+    var days = millisBetween / millisecondsPerDay;
+
+    // Round down.
+    days = Math.floor(days);
+
+    switch (days) {
+      case 0:  return 'Earlier today';
+      case 1:  return 'Yesterday';
+      default: return days + ' days ago';
+    }
   },
 
   parseDate: function(date) {
@@ -306,8 +324,8 @@ var view = {
     $('#doneWorkout').hide();
     $('.note').html('Last workout: <br><strong>' +
         model.workoutName(model.lastWorkout().workout) + '</strong><br>' +
-        model.parseDate(model.lastWorkout().date) + '.<br>' +
-        model.daysSinceLastWorkout() + ' days'
+        // model.parseDate(model.lastWorkout().date) + '.<br>' +
+        model.daysSinceLastWorkout()
       );
   },
 
@@ -360,7 +378,7 @@ var view = {
     $('#status').html('Done');
     $('#doneWorkout').show();
 
-    var t = '<p>' + model.storeExercise.date.toDateString() + '</p>';
+    var t = '<p>' + model.parseDate(model.storeExercise.date) + '</p>';
     t += "<p>Workout stored</p><br>"
     t += '<table><tr><td></td><td>Today\'s<br>Weight</td><td>Next<br>Weight</td></tr>';
 
