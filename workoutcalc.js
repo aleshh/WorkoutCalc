@@ -399,6 +399,8 @@ var view = {
   },
 
   showPastWorkouts: function() {
+    var o = "";
+    var v = "";
     if (model.pastWorkouts.length == 0) {
       o = '<p>There are currently no workouts stored. Workouts are recorded in browser storage on your device, so you will need to use the same browser to access your data in the future.</p><p>Currently using ' + model.unitsLong() + '.</p>';
     } else {
@@ -415,13 +417,14 @@ var view = {
         }
         o += '</ul>';
       }
-      o += '<button type="button" class="button reset-button" >Reset</button>';
+      v += '<button type="button" class="button reset-button" >Reset</button>';
     }
 
-    o += '<button type="button" class="button switch-units-button" >Switch to '
+    v += '<button type="button" class="button switch-units-button" >Switch to '
            + model.unitsLongOpposite() + '</button>';
 
     $('#pastWorkouts').html($(o));
+    $('#workoutButtons').html($(v));
 
     // event handler for reset button
 

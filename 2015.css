@@ -227,9 +227,8 @@
     }
 
     #pastWorkouts {
-      height: 50%;
+      height: 70%;
       overflow: scroll;
-      background-color: rgba(0,255,0,0.1);
     }
 
     #account h1 {
@@ -283,6 +282,11 @@
 
       header {
         height: 52px;
+      }
+
+      .reset-button, .switch-units-button {
+        padding: 8px 10px;
+        margin-left: 15px;
       }
 
     }
