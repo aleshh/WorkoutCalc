@@ -227,8 +227,8 @@
     }
 
     #pastWorkouts {
-      height: 70%;
-      overflow: scroll;
+      height: calc(100% - 140px);
+      overflow: auto;
     }
 
     #account h1 {
