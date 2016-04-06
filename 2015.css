@@ -227,7 +227,7 @@
     }
 
     #pastWorkouts {
-      height: calc(100% - 140px);
+      height: calc(100% - 120px);
       overflow: auto;
     }
 
@@ -290,3 +290,11 @@
       }
 
     }
+
+@media screen and (max-width: 390px) {
+
+  #pastWorkouts {
+    height: calc(100% - 160px);
+  }
+
+}
