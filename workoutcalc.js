@@ -259,6 +259,8 @@ var model = {
     var first = new Date(model.lastWorkout().date);
     var second = new Date();
 
+    if (second - first < 900000) return 'Just now';
+
     // Copy date parts of the timestamps, discarding the time parts.
     var one = new Date(first.getFullYear(), first.getMonth(), first.getDate());
     var two = new Date(second.getFullYear(), second.getMonth(), second.getDate());
