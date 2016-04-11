@@ -464,7 +464,20 @@ var controller = {
   initializeEvents: function() {
 
     // prevent scrolling on mobile
-    document.ontouchmove = function(e) {e.preventDefault()};
+
+     $("body").on("touchmove", false);
+
+     // $('#pastWorkouts').on("touchmove", true);
+
+    // document.ontouchmove = function(e) {
+    //   e.preventDefault()
+    // };
+
+
+    $("*").click(function(e) {
+      console.log('element.target: ' + e.target.nodeName);
+    });
+
 
     // slide-out panels
 
@@ -474,12 +487,21 @@ var controller = {
     });
 
     $('.account-button').click(function() {
+
+      $("body").on("touchmove", true);
+
       $('#account').show();
       view.showPastWorkouts();
       $('#help').hide();
     });
 
     $('.close-button').click(function() {
+
+      $("body").on("touchmove", function(e) {
+        e.preventDefault();
+        console.log('preventDefault in close-button');
+      });
+
       $('#help   ').hide();
       $('#account').hide();
     });
