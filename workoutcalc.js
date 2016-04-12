@@ -463,21 +463,17 @@ var controller = {
 
   initializeEvents: function() {
 
-    // prevent scrolling on mobile
+    // prevent scrolling on mobile, except in past workouts
 
-     $("body").on("touchmove", false);
-
-     // $('#pastWorkouts').on("touchmove", true);
-
-    // document.ontouchmove = function(e) {
-    //   e.preventDefault()
-    // };
-
-
-    $("*").click(function(e) {
-      console.log('element.target: ' + e.target.nodeName);
+    $(document).on('touchmove', function(e) {
+      if (!$(e.target).parents().hasClass( 'touch-moveable' )) {
+        e.preventDefault();
+      }
     });
 
+   $('.touch-moveable').on('touchmove',function(e){
+     e.stopPropogation();
+   });
 
     // slide-out panels
 
@@ -499,7 +495,7 @@ var controller = {
 
       $("body").on("touchmove", function(e) {
         e.preventDefault();
-        console.log('preventDefault in close-button');
+        console.log('preventDefault in close-button')
       });
 
       $('#help   ').hide();
