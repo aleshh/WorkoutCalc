@@ -183,8 +183,6 @@ var model = {
 
     this.lastWeights = { sq: {}, bp: {}, dl: {}, sp: {}, pc: {} };
     this.pastWorkouts = JSON.parse(localStorage.getItem("pastWorkouts"));
-    //this line outputs all stored workouts to console:
-    //console.log('loadData pastWorkouts before: ' + JSON.stringify(this.pastWorkouts, null, 2));
     if (!this.pastWorkouts) {
       this.pastWorkouts = [];
     } else {
@@ -240,12 +238,10 @@ var model = {
     this.lastWeights.dl.nextWeight = this.lastWeights.dl.nextWeight || 0;
     this.lastWeights.sp.nextWeight = this.lastWeights.sp.nextWeight || 0;
     this.lastWeights.pc.nextWeight = this.lastWeights.pc.nextWeight || 0;
-    // console.log('loadData lastWeights: ' + JSON.stringify(this.lastWeights, null, 2));
   },
 
   saveData: function() {
     this.storeExercise.date = this.storeExercise.date.valueOf();
-    console.log('saveData storeExercise: ' + JSON.stringify(this.storeExercise, null, 4));
     this.pastWorkouts.push(this.storeExercise);
     localStorage.setItem("pastWorkouts", JSON.stringify(this.pastWorkouts));
   },
@@ -324,11 +320,14 @@ var view = {
     $('#weightSelect').hide();
     $('#nextWeightSelect').hide();
     $('#doneWorkout').hide();
-    $('.note').html('Last workout: <br><strong>' +
+    if (model.lastWorkout) {
+      $('.note').html('Last workout: <br><strong>' +
         model.workoutName(model.lastWorkout().workout) + '</strong><br>' +
         // model.parseDate(model.lastWorkout().date) + '.<br>' +
         model.daysSinceLastWorkout()
       );
+    }
+
   },
 
   weightInputView: function() {
@@ -495,7 +494,6 @@ var controller = {
 
       $("body").on("touchmove", function(e) {
         e.preventDefault();
-        console.log('preventDefault in close-button')
       });
 
       $('#help   ').hide();
@@ -573,7 +571,6 @@ var controller = {
       // in #weightInput
       // model.lastWeights[model.currentExercise].nextWeight = model.workWeight;
       $('#weightInput').val(model.workWeight);
-      console.log('backButton: ' + model.workWeight)
       view.weightInputView();
     });
 
@@ -638,7 +635,6 @@ $(function() {
     FastClick.attach(document.body);
 
     $("#startingStrength").click(function(event){
-      console.log('prevent default');
       event.preventDefault();
       cordova.InAppBrowser.open("http://startingstrength.wikia.com/wiki/Starting_Strength_Wiki", "_system");
     });
