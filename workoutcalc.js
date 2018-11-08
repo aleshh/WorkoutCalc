@@ -320,7 +320,7 @@ var view = {
     $('#weightSelect').hide();
     $('#nextWeightSelect').hide();
     $('#doneWorkout').hide();
-    if (model.lastWorkout) {
+    if (model.lastWorkout()) {
       $('.note').html('Last workout: <br><strong>' +
         model.workoutName(model.lastWorkout().workout) + '</strong><br>' +
         // model.parseDate(model.lastWorkout().date) + '.<br>' +
