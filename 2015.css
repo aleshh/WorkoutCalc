@@ -1,300 +1,379 @@
-    html, body, div, span, applet, object, iframe,
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code,
-    del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var,
-    b, u, i, center,
-    dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend,
-    table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed,
-    figure, figcaption, footer, header, hgroup,
-    menu, nav, output, ruby, section, summary,
-    time, mark, audio, video {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font-size: 100%;
-      vertical-align: baseline;
-    }
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
 
-    body {
-      font-size: 1.4em;
-      color: #61217f;
-    }
+body {
+  font-size: 1.4em;
+  color: #61217f;
+}
 
-    body, textarea, input {
-      font-family: 'Muli', sans-serif;
-      background-color: #fff;
-    }
+body,
+textarea,
+input {
+  font-family: 'Muli', sans-serif;
+  background-color: #fff;
+}
 
-    strong, b, button, h1 {
-      font-family: 'Montserrat', sans-serif;
-    }
+strong,
+b,
+button,
+h1 {
+  font-family: 'Montserrat', sans-serif;
+}
 
-    a { color: #61217f;}
+a {
+  color: #61217f;
+}
 
-    #wrapper, hgroup {
-      position: relative;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      padding: 0 20px;
-    }
-    #wrapper {
-      margin-top: 50px;
-    }
-    form {
-        padding-top: 50px;
-        padding-bottom: 20px;
-    }
-    input {
-        /*border: none;*/
-        text-align: right;
-        font-size: 1.2em;
-        width: 3em;
-        color: #61217f;
-        border: 3px solid #61217f;
-        position: relative;
-        top: 5px;
-    }
-    input:focus {
-      outline: none;
-    }
+#wrapper,
+hgroup {
+  position: relative;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 0 20px;
+}
+#wrapper {
+  margin-top: 50px;
+}
+form {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+input {
+  /*border: none;*/
+  text-align: right;
+  font-size: 1.2em;
+  width: 3em;
+  color: #61217f;
+  border: 3px solid #61217f;
+  position: relative;
+  top: 5px;
+}
+input:focus {
+  outline: none;
+}
 
-    /* Table */
+/* Table */
 
-    table, #weightReps, #weightSelect {
-      display: inline-block;
-      margin-left: auto;
-      margin-right: auto;
-      border-collapse: collapse;
-    }
-    td {
-      padding: 0 20px;
-      vertical-align: middle;
-    }
-    td:nth-child(2) {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.6em;
-      background-color: #ff0;
-    }
-    tr {
-      background-color: #ddd;
-    }
-    tr:nth-child(odd) {
-      background-color: #fff;
-      padding: 0;
-    }
-    tr:nth-child(even) > td:nth-child(2) {
-      background-color: #dd0;
-    }
-    tr:first-child {
-      background-color: #444;
-      color: #fff;
-      text-transform: uppercase;
-    }
-    tr:first-child > td:nth-child(2) {
-      background-color: #330;
-      color: #ff0;
-    }
-    #doneWorkout tr:first-child {
-      font-size: .7em;
-    }
-    #doneWorkout td:nth-child(1) {
-      text-align: left;
-    }
-    header {
-      background-color: #fff;
-      border-bottom: 3px solid #61217f;
-      height: 68px;
-    }
-    h1 {
-      font-size: 1.7em;
-      text-align: center;
-      padding: 10px;
-      max-width: 800px;
-      margin-left:auto;
-      margin-right: auto;
-    }
+table,
+#weightReps,
+#weightSelect {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+td {
+  padding: 0 20px;
+  vertical-align: middle;
+}
+td:nth-child(2) {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.6em;
+  background-color: #ff0;
+}
+tr {
+  background-color: #ddd;
+}
+tr:nth-child(odd) {
+  background-color: #fff;
+  padding: 0;
+}
+tr:nth-child(even) > td:nth-child(2) {
+  background-color: #dd0;
+}
+tr:first-child {
+  background-color: #444;
+  color: #fff;
+  text-transform: uppercase;
+}
+tr:first-child > td:nth-child(2) {
+  background-color: #330;
+  color: #ff0;
+}
+#doneWorkout tr:first-child {
+  font-size: 0.7em;
+}
+#doneWorkout td:nth-child(1) {
+  text-align: left;
+}
+header {
+  background-color: #fff;
+  border-bottom: 3px solid #61217f;
+  height: 68px;
+}
+h1 {
+  font-size: 1.7em;
+  text-align: center;
+  padding: 10px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-    input, label {
-      font-size: 1.8em;
-    }
-   .note {
-      font-size: .8em;
-    }
-    table {
-      font-size: 1.4em;
-    }
+input,
+label {
+  font-size: 1.8em;
+}
+.note {
+  font-size: 0.8em;
+}
+table {
+  font-size: 1.4em;
+}
 
-    /* Buttons */
+/* Buttons */
 
-    .button {
-      text-align: center;
-      text-transform: uppercase;
-      background-color:#61217f;
-      color: #fff;
-      font-size: 1em;
-      border: 3px solid #61217f;
-      border-radius: 10px;
-      padding: 20px 30px;
-      margin: 20px 0;
-      cursor: pointer;
+.button {
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #61217f;
+  color: #fff;
+  font-size: 1em;
+  border: 3px solid #61217f;
+  border-radius: 10px;
+  padding: 20px 30px;
+  margin: 20px 0;
+  cursor: pointer;
 
-      /* prevents text selection when quick-tapping buttons on ios */
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-    }
+  /* prevents text selection when quick-tapping buttons on ios */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
 
-    .wide-button {
-      box-sizing: border-box;
-      display: block;
-      width: 100%;
-    }
+.wide-button {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
 
-    .default-button {
-      background-color: #fff;
-      color: #61217f;
-      border: 3px solid #61217f;
-      font-weight: bold;
-      padding: 20px 60px;
-    }
+.default-button {
+  background-color: #fff;
+  color: #61217f;
+  border: 3px solid #61217f;
+  font-weight: bold;
+  padding: 20px 60px;
+}
 
-    .reset-button, .switch-units-button {
-      font-size: .6em;
-      padding: 5px 10px;
-      margin-left: 30px;
-      border-radius: 5px;
-    }
+.reset-button,
+.switch-units-button {
+  font-size: 0.6em;
+  padding: 5px 10px;
+  margin-left: 30px;
+  border-radius: 5px;
+}
 
-    /* Toolbar buttons */
+/* Toolbar buttons */
 
-    .toolbar {
-      background-color: transparent;
-      color: #61217f;
-      font-size: .7em;
-      margin: 15px;
-      padding: 0;
-      border: 0;
-      cursor: pointer;
-      z-index: 1;
-    }
+.toolbar {
+  background-color: transparent;
+  color: #61217f;
+  font-size: 0.7em;
+  margin: 15px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  z-index: 1;
+}
 
-    .left-toolbar {
-      position:absolute;
-      top: 0;
-      left: 0;
-    }
+.left-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
-    .right-toolbar {
-      position:absolute;
-      top: 0;
-      right: 0;
-    }
+.right-toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
-    /* Slide-out panels */
+/* Slide-out panels */
 
-    .slider {
-      display: none;
-      background-color: #fff;
-      position: absolute;
-      top: 0;
-      width: 500px;
-      max-width: 90%;
-      height: 100%;
-      overflow: auto;
-      z-index: 2;
-    }
+.slider {
+  display: none;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  width: 500px;
+  max-width: 90%;
+  height: 100%;
+  overflow: auto;
+  z-index: 2;
+}
 
-    .slider p {
-      font-size: .8em;
-      padding: 20px 30px 0 30px;
-    }
+.slider p {
+  font-size: 0.8em;
+  padding: 20px 30px 0 30px;
+}
 
-    .slider ul {
-      font-size: .8em;
-      padding: 0 30px;
-    }
+.slider ul {
+  font-size: 0.8em;
+  padding: 0 30px;
+}
 
-    .slider ul>li {
-      margin-left: 20px;
-    }
+.slider ul > li {
+  margin-left: 20px;
+}
 
-    .slider p:first {
-      margin-top: 50px;
-    }
+.slider p:first {
+  margin-top: 50px;
+}
 
-    #pastWorkouts {
-      height: calc(100% - 120px);
-      overflow: auto;
-    }
+#pastWorkouts {
+  height: calc(100% - 120px);
+  overflow: auto;
+}
 
-    #account h1 {
-      margin-right: 50px;
-      margin-left:  50px;
-    }
+#account h1 {
+  margin-right: 50px;
+  margin-left: 50px;
+}
 
-    #help {
-      right: 0;
-      border-left: 3px solid #61217f;
-    }
+#help {
+  right: 0;
+  border-left: 3px solid #61217f;
+}
 
-    #account {
-      left: 0;
-      border-right: 3px solid #61217f;
-    }
+#account {
+  left: 0;
+  border-right: 3px solid #61217f;
+}
 
-    @media screen and (max-width: 500px) {
-      body {
-          font-size: 1em;
-      }
+@media screen and (max-width: 500px) {
+  body {
+    font-size: 1em;
+  }
 
-      #wrapper {
-        margin-top: 25px;
-      }
+  #wrapper {
+    margin-top: 25px;
+  }
 
-      input {
-        width: 2.5em;
-      }
+  input {
+    width: 2.5em;
+  }
 
-      .button {
-        padding: 14px 23px;
-        /*margin: 14px 0;*/
-      }
+  .button {
+    padding: 14px 23px;
+    /*margin: 14px 0;*/
+  }
 
-      tr:first-child > td:nth-child(2) {
-        font-size: 1.1em;
-      }
+  tr:first-child > td:nth-child(2) {
+    font-size: 1.1em;
+  }
 
-      tr:first-child > td{
-        padding: 0 6px;
-      }
+  tr:first-child > td {
+    padding: 0 6px;
+  }
 
-      #displayWorkout tr {
-        height: 2.6em;
-      }
+  #displayWorkout tr {
+    height: 2.6em;
+  }
 
-      #selectWorkout, #workout {
-        margin-top: 10px;
-      }
+  #selectWorkout,
+  #workout {
+    margin-top: 10px;
+  }
 
-      header {
-        height: 52px;
-      }
+  header {
+    height: 52px;
+  }
 
-      .reset-button, .switch-units-button {
-        padding: 8px 10px;
-        margin-left: 15px;
-      }
-
-    }
+  .reset-button,
+  .switch-units-button {
+    padding: 8px 10px;
+    margin-left: 15px;
+  }
+}
 
 @media screen and (max-width: 390px) {
-
   #pastWorkouts {
     height: calc(100% - 160px);
   }
-
 }
